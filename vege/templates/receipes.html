@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block startHarsh %}
+
+<div class="container mt-5">
+    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+      <h2>Add Receipe</h2>
+      <hr>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label" >Receipe Name</label>
+        <input name="name" required type="text" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label" >Receipe Description</label>
+        <textarea class="form-control" name="description" required></textarea>
+      </div>
+      <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label" >Receipe Image</label>
+          <input name="image" type="file" class="form-control"></input>
+      </div>
+      <button type="submit" class="btn btn-success">Add Receipe</button>
+    </form>
+</div>
+
+<hr>
+
+<div class="mt-5">
+    <div class="mx-auto col-6">
+        <form>
+            <div class="mb-3">
+                <label for="exampleSearch" class="form-label" >Search Food</label>
+                <input name="search" type="text" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+    </div>
+</div>
+
+<table class="table mt-5">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Image</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in receipes %}
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>{{r.name}}</td>
+          <td>{{r.description}}</td>
+          <td>
+              <img src="/media/{{r.image}}" style="height: 200px">
+          </td>
+          <td>
+              <a href="/update-receipe/{{r.id}}/" class="btn btn-success m-2" >EDIT</a>
+              <a href="/delete-receipe/{{r.id}}/" class="btn btn-danger">DELETE</a>
+          </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<hr>
+<a href="/">
+        HOME
+</a>
+{% endblock %}

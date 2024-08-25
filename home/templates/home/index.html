@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block startHarsh %}
+
+    <h1> This Index page is returned by the Django server </h1>
+    <hr>
+
+    <table class="container">
+      <tr>
+        <th>S no.</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Can Vote</th>
+      </tr>
+
+      {% for p in people %}
+      <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{p.name}}</td>
+          <td>{{p.age}}</td>
+          <td {% if p.age >= 18 %} style = background:red {% endif %}>
+              {% if p.age < 18 %}
+              👎
+              {% else %}
+              👍
+              {% endif %}
+          </td>
+      </tr>
+      {% endfor %}
+    </table>
+    <hr>
+    <p>
+        {{text|truncatechars:80}}
+    </p>
+
+    <hr>
+
+    {% if "FIFA" in games %}
+        YES FIFA is available
+    {% elif "Valorant" in games %}
+        YES Valorant is available
+    {% else %}
+        Not available
+    {% endif %}
+
+    <hr>
+
+    <a href="/receipes/">
+        RECEIPE
+    </a>
+
+    <hr>
+
+    <a href="/contact/">
+        CONTACT
+    </a>
+    <br>
+    <a href="/about/">
+        ABOUT
+    </a>
+
+{% endblock %}
